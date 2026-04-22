@@ -17,6 +17,16 @@ export interface CreateLoan {
   loanDays: number;
 }
 
+export interface LoanHistory {
+  id: number;
+  bookTitle: string;
+  memberName: string;
+  borrowDate: string;
+  dueDate: string;
+  returnDate: string | null;
+  archivedAt: string;
+}
+
 export interface Dashboard {
   totalBooks: number;
   totalMembers: number;

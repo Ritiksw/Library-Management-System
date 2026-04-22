@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Loan, CreateLoan, Dashboard } from '../models/loan.model';
+import { Loan, CreateLoan, Dashboard, LoanHistory } from '../models/loan.model';
 
 @Injectable({ providedIn: 'root' })
 export class LoanService {
@@ -9,9 +9,10 @@ export class LoanService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(activeOnly?: boolean): Observable<Loan[]> {
+  getAll(activeOnly?: boolean, search?: string): Observable<Loan[]> {
     let params = new HttpParams();
     if (activeOnly !== undefined) params = params.set('activeOnly', activeOnly);
+    if (search) params = params.set('search', search);
     return this.http.get<Loan[]>(this.url, { params });
   }
 
@@ -21,6 +22,12 @@ export class LoanService {
 
   return(id: number): Observable<any> {
     return this.http.post(`${this.url}/${id}/return`, {});
+  }
+
+  getHistory(search?: string): Observable<LoanHistory[]> {
+    let params = new HttpParams();
+    if (search) params = params.set('search', search);
+    return this.http.get<LoanHistory[]>(`${this.url}/history`, { params });
   }
 
   getDashboard(): Observable<Dashboard> {

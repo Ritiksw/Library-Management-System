@@ -7,6 +7,7 @@ public interface IBookRepository
     Task<List<Book>> GetAllAsync(string? search);
     Task<Book?> GetByIdAsync(int id);
     Task<Book?> GetByIdWithActiveLoansAsync(int id);
+    Task<Book?> GetByIdWithAllLoansAsync(int id);
     Task<bool> ExistsByIsbnAsync(string isbn, int? excludeId = null);
     Task AddAsync(Book book);
     void Remove(Book book);

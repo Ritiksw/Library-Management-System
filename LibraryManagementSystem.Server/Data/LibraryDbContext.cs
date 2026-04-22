@@ -10,6 +10,7 @@ public class LibraryDbContext : DbContext
     public DbSet<Book> Books => Set<Book>();
     public DbSet<Member> Members => Set<Member>();
     public DbSet<Loan> Loans => Set<Loan>();
+    public DbSet<LoanHistory> LoanHistory => Set<LoanHistory>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

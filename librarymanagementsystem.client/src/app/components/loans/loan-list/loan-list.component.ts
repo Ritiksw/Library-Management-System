@@ -10,6 +10,7 @@ import { Loan } from '../../../models/loan.model';
 export class LoanListComponent implements OnInit {
   loans: Loan[] = [];
   activeOnly = false;
+  search = '';
 
   constructor(private loanService: LoanService) {}
 
@@ -18,7 +19,11 @@ export class LoanListComponent implements OnInit {
   }
 
   load(): void {
-    this.loanService.getAll(this.activeOnly || undefined).subscribe(data => this.loans = data);
+    this.loanService.getAll(this.activeOnly || undefined, this.search || undefined).subscribe(data => this.loans = data);
+  }
+
+  onSearch(): void {
+    this.load();
   }
 
   toggleFilter(): void {

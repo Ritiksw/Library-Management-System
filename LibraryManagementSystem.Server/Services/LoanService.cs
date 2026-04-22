@@ -9,17 +9,19 @@ public class LoanService : ILoanService
     private readonly ILoanRepository _loanRepo;
     private readonly IBookRepository _bookRepo;
     private readonly IMemberRepository _memberRepo;
+    private readonly ILoanHistoryService _historyService;
 
-    public LoanService(ILoanRepository loanRepo, IBookRepository bookRepo, IMemberRepository memberRepo)
+    public LoanService(ILoanRepository loanRepo, IBookRepository bookRepo, IMemberRepository memberRepo, ILoanHistoryService historyService)
     {
         _loanRepo = loanRepo;
         _bookRepo = bookRepo;
         _memberRepo = memberRepo;
+        _historyService = historyService;
     }
 
-    public async Task<List<LoanDto>> GetAllAsync(bool? activeOnly)
+    public async Task<List<LoanDto>> GetAllAsync(bool? activeOnly, string? search)
     {
-        var loans = await _loanRepo.GetAllAsync(activeOnly);
+        var loans = await _loanRepo.GetAllAsync(activeOnly, search);
         return loans.Select(MapToDto).ToList();
     }
 
@@ -77,6 +79,8 @@ public class LoanService : ILoanService
 
         loan.ReturnDate = DateTime.UtcNow;
         loan.Book.AvailableCopies++;
+
+        await _historyService.ArchiveLoansAsync(new[] { loan });
         await _loanRepo.SaveChangesAsync();
 
         return ServiceResult.Ok();

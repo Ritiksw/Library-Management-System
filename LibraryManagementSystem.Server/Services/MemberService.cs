@@ -7,8 +7,15 @@ namespace LibraryManagementSystem.Server.Services;
 public class MemberService : IMemberService
 {
     private readonly IMemberRepository _memberRepo;
+    private readonly ILoanRepository _loanRepo;
+    private readonly ILoanHistoryService _historyService;
 
-    public MemberService(IMemberRepository memberRepo) => _memberRepo = memberRepo;
+    public MemberService(IMemberRepository memberRepo, ILoanRepository loanRepo, ILoanHistoryService historyService)
+    {
+        _memberRepo = memberRepo;
+        _loanRepo = loanRepo;
+        _historyService = historyService;
+    }
 
     public async Task<List<MemberDto>> GetAllAsync(string? search)
     {
@@ -62,12 +69,18 @@ public class MemberService : IMemberService
 
     public async Task<ServiceResult> DeleteAsync(int id)
     {
-        var member = await _memberRepo.GetByIdWithActiveLoansAsync(id);
+        var member = await _memberRepo.GetByIdWithAllLoansAsync(id);
         if (member is null)
             return ServiceResult.NotFound("Member not found.");
 
+        if (member.Loans.Any(l => l.ReturnDate == null))
+            return ServiceResult.BadRequest("Cannot delete a member with active loans. Return all books first.");
+
         if (member.Loans.Any())
-            return ServiceResult.BadRequest("Cannot delete a member with active loans.");
+        {
+            await _historyService.ArchiveLoansAsync(member.Loans);
+            _loanRepo.RemoveRange(member.Loans);
+        }
 
         _memberRepo.Remove(member);
         await _memberRepo.SaveChangesAsync();

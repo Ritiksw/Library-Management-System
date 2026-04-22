@@ -7,6 +7,7 @@ import { MemberListComponent } from './components/members/member-list/member-lis
 import { MemberFormComponent } from './components/members/member-form/member-form.component';
 import { LoanListComponent } from './components/loans/loan-list/loan-list.component';
 import { LoanCheckoutComponent } from './components/loans/loan-checkout/loan-checkout.component';
+import { LoanHistoryComponent } from './components/loans/loan-history/loan-history.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'members/new', component: MemberFormComponent },
   { path: 'members/edit/:id', component: MemberFormComponent },
   { path: 'loans', component: LoanListComponent },
+  { path: 'loans/history', component: LoanHistoryComponent },
   { path: 'loans/checkout', component: LoanCheckoutComponent },
   { path: '**', redirectTo: '' }
 ];

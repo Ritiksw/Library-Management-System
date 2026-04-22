@@ -22,10 +22,12 @@ builder.Services.AddDbContext<LibraryDbContext>(options =>
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+builder.Services.AddScoped<ILoanHistoryRepository, LoanHistoryRepository>();
 
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<ILoanService, LoanService>();
+builder.Services.AddScoped<ILoanHistoryService, LoanHistoryService>();
 
 var app = builder.Build();
 

@@ -28,6 +28,17 @@ public class CreateLoanDto
     public int LoanDays { get; set; } = 14;
 }
 
+public class LoanHistoryDto
+{
+    public int Id { get; set; }
+    public string BookTitle { get; set; } = string.Empty;
+    public string MemberName { get; set; } = string.Empty;
+    public DateTime BorrowDate { get; set; }
+    public DateTime DueDate { get; set; }
+    public DateTime? ReturnDate { get; set; }
+    public DateTime ArchivedAt { get; set; }
+}
+
 public class DashboardDto
 {
     public int TotalBooks { get; set; }

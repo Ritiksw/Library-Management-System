@@ -38,6 +38,11 @@ public class MemberRepository : IMemberRepository
             .Include(m => m.Loans.Where(l => l.ReturnDate == null))
             .FirstOrDefaultAsync(m => m.Id == id);
 
+    public async Task<Member?> GetByIdWithAllLoansAsync(int id) =>
+        await _db.Members
+            .Include(m => m.Loans).ThenInclude(l => l.Book)
+            .FirstOrDefaultAsync(m => m.Id == id);
+
     public async Task<bool> ExistsByEmailAsync(string email, int? excludeId = null) =>
         await _db.Members.AnyAsync(m => m.Email == email && (!excludeId.HasValue || m.Id != excludeId.Value));
 

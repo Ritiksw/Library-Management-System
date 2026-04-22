@@ -35,6 +35,11 @@ public class BookRepository : IBookRepository
             .Include(b => b.Loans.Where(l => l.ReturnDate == null))
             .FirstOrDefaultAsync(b => b.Id == id);
 
+    public async Task<Book?> GetByIdWithAllLoansAsync(int id) =>
+        await _db.Books
+            .Include(b => b.Loans).ThenInclude(l => l.Member)
+            .FirstOrDefaultAsync(b => b.Id == id);
+
     public async Task<bool> ExistsByIsbnAsync(string isbn, int? excludeId = null) =>
         await _db.Books.AnyAsync(b => b.ISBN == isbn && (!excludeId.HasValue || b.Id != excludeId.Value));
 

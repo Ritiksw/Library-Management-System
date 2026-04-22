@@ -8,12 +8,17 @@ namespace LibraryManagementSystem.Server.Controllers;
 public class LoansController : ApiControllerBase
 {
     private readonly ILoanService _loanService;
+    private readonly ILoanHistoryService _historyService;
 
-    public LoansController(ILoanService loanService) => _loanService = loanService;
+    public LoansController(ILoanService loanService, ILoanHistoryService historyService)
+    {
+        _loanService = loanService;
+        _historyService = historyService;
+    }
 
     [HttpGet]
-    public async Task<ActionResult<List<LoanDto>>> GetAll([FromQuery] bool? activeOnly) =>
-        Ok(await _loanService.GetAllAsync(activeOnly));
+    public async Task<ActionResult<List<LoanDto>>> GetAll([FromQuery] bool? activeOnly, [FromQuery] string? search) =>
+        Ok(await _loanService.GetAllAsync(activeOnly, search));
 
     [HttpPost]
     public async Task<ActionResult<LoanDto>> Checkout(CreateLoanDto dto) =>
@@ -27,6 +32,10 @@ public class LoansController : ApiControllerBase
             return Ok(new { message = "Book returned successfully." });
         return ToActionResult(result);
     }
+
+    [HttpGet("history")]
+    public async Task<ActionResult<List<LoanHistoryDto>>> History([FromQuery] string? search) =>
+        Ok(await _historyService.GetAllAsync(search));
 
     [HttpGet("dashboard")]
     public async Task<ActionResult<DashboardDto>> Dashboard() =>

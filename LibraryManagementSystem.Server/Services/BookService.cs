@@ -7,8 +7,15 @@ namespace LibraryManagementSystem.Server.Services;
 public class BookService : IBookService
 {
     private readonly IBookRepository _bookRepo;
+    private readonly ILoanRepository _loanRepo;
+    private readonly ILoanHistoryService _historyService;
 
-    public BookService(IBookRepository bookRepo) => _bookRepo = bookRepo;
+    public BookService(IBookRepository bookRepo, ILoanRepository loanRepo, ILoanHistoryService historyService)
+    {
+        _bookRepo = bookRepo;
+        _loanRepo = loanRepo;
+        _historyService = historyService;
+    }
 
     public async Task<List<BookDto>> GetAllAsync(string? search)
     {
@@ -74,12 +81,18 @@ public class BookService : IBookService
 
     public async Task<ServiceResult> DeleteAsync(int id)
     {
-        var book = await _bookRepo.GetByIdWithActiveLoansAsync(id);
+        var book = await _bookRepo.GetByIdWithAllLoansAsync(id);
         if (book is null)
             return ServiceResult.NotFound("Book not found.");
 
+        if (book.Loans.Any(l => l.ReturnDate == null))
+            return ServiceResult.BadRequest("Cannot delete a book with active loans. Return all copies first.");
+
         if (book.Loans.Any())
-            return ServiceResult.BadRequest("Cannot delete a book with active loans.");
+        {
+            await _historyService.ArchiveLoansAsync(book.Loans);
+            _loanRepo.RemoveRange(book.Loans);
+        }
 
         _bookRepo.Remove(book);
         await _bookRepo.SaveChangesAsync();

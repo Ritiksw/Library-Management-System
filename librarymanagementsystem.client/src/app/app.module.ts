@@ -13,6 +13,7 @@ import { MemberListComponent } from './components/members/member-list/member-lis
 import { MemberFormComponent } from './components/members/member-form/member-form.component';
 import { LoanListComponent } from './components/loans/loan-list/loan-list.component';
 import { LoanCheckoutComponent } from './components/loans/loan-checkout/loan-checkout.component';
+import { LoanHistoryComponent } from './components/loans/loan-history/loan-history.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { LoanCheckoutComponent } from './components/loans/loan-checkout/loan-che
     MemberListComponent,
     MemberFormComponent,
     LoanListComponent,
-    LoanCheckoutComponent
+    LoanCheckoutComponent,
+    LoanHistoryComponent
   ],
   imports: [
     BrowserModule,

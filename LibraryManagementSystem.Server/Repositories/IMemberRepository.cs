@@ -8,6 +8,7 @@ public interface IMemberRepository
     Task<Member?> GetByIdAsync(int id);
     Task<Member?> GetByIdWithLoansAsync(int id);
     Task<Member?> GetByIdWithActiveLoansAsync(int id);
+    Task<Member?> GetByIdWithAllLoansAsync(int id);
     Task<bool> ExistsByEmailAsync(string email, int? excludeId = null);
     Task AddAsync(Member member);
     void Remove(Member member);

@@ -1,0 +1,46 @@
+<div class="page-header">
+  <div>
+    <h1>Loan History</h1>
+    <p class="subtitle">Archived records of all past loan activity</p>
+  </div>
+  <a routerLink="/loans" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Loans</a>
+</div>
+
+<div class="search-bar">
+  <div class="search-input-wrap">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" [(ngModel)]="search" (keyup.enter)="onSearch()" placeholder="Search by book title or member name..." />
+  </div>
+  <button class="btn btn-secondary" (click)="onSearch()">Search</button>
+</div>
+
+<div class="section-card">
+  <div class="table-wrap">
+    <table *ngIf="history.length > 0">
+      <thead>
+        <tr>
+          <th>Book</th>
+          <th>Member</th>
+          <th>Borrowed</th>
+          <th>Due Date</th>
+          <th>Returned</th>
+          <th>Archived</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of history">
+          <td class="primary-cell">{{ record.bookTitle }}</td>
+          <td>{{ record.memberName }}</td>
+          <td class="mono">{{ record.borrowDate | date:'mediumDate' }}</td>
+          <td class="mono">{{ record.dueDate | date:'mediumDate' }}</td>
+          <td class="mono">{{ record.returnDate ? (record.returnDate | date:'mediumDate') : 'Not returned' }}</td>
+          <td class="mono">{{ record.archivedAt | date:'mediumDate' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="empty-state" *ngIf="history.length === 0">
+    <div class="empty-icon"><i class="fas fa-archive"></i></div>
+    <p>No history records yet. Records appear here when loans are returned or members/books are deleted.</p>
+  </div>
+</div>

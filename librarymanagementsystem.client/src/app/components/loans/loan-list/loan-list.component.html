@@ -4,11 +4,20 @@
     <p class="subtitle">Track book checkouts and returns</p>
   </div>
   <div class="header-actions">
+    <a routerLink="/loans/history" class="btn btn-secondary"><i class="fas fa-history"></i> History</a>
     <button class="btn btn-secondary" (click)="toggleFilter()">
       {{ activeOnly ? 'Show All' : 'Active Only' }}
     </button>
     <a routerLink="/loans/checkout" class="btn btn-primary">+ Checkout Book</a>
   </div>
+</div>
+
+<div class="search-bar">
+  <div class="search-input-wrap">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" [(ngModel)]="search" (keyup.enter)="onSearch()" placeholder="Search by book title or member name..." />
+  </div>
+  <button class="btn btn-secondary" (click)="onSearch()">Search</button>
 </div>
 
 <div class="section-card">
