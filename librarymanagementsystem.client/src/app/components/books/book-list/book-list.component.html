@@ -1,0 +1,54 @@
+<div class="page-header">
+  <div>
+    <h1>Books</h1>
+    <p class="subtitle">Manage your library collection</p>
+  </div>
+  <a routerLink="/books/new" class="btn btn-primary">+ Add Book</a>
+</div>
+
+<div class="search-bar">
+  <div class="search-input-wrap">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" [(ngModel)]="search" (keyup.enter)="onSearch()" placeholder="Search by title, author, ISBN, or genre..." />
+  </div>
+  <button class="btn btn-secondary" (click)="onSearch()">Search</button>
+</div>
+
+<div class="section-card">
+  <div class="table-wrap">
+    <table *ngIf="books.length > 0">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>ISBN</th>
+          <th>Genre</th>
+          <th>Year</th>
+          <th>Available</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of books">
+          <td class="primary-cell">{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td><code>{{ book.isbn }}</code></td>
+          <td><span class="genre-tag">{{ book.genre }}</span></td>
+          <td class="mono">{{ book.publishedYear }}</td>
+          <td>
+            <span class="availability" [class.zero]="book.availableCopies === 0">
+              {{ book.availableCopies }}<span class="of-total"> / {{ book.totalCopies }}</span>
+            </span>
+          </td>
+          <td class="actions">
+            <a [routerLink]="['/books/edit', book.id]" class="btn btn-sm btn-secondary">Edit</a>
+            <button class="btn btn-sm btn-danger" (click)="deleteBook(book.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="empty-state" *ngIf="books.length === 0">
+    <p>No books found. Add your first book!</p>
+  </div>
+</div>

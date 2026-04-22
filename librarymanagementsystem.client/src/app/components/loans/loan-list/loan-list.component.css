@@ -1,0 +1,66 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.page-header h1 { font-size: 1.75rem; font-weight: 800; margin: 0; }
+.subtitle { color: var(--text-secondary); margin: 0.25rem 0 0; font-size: 0.9rem; }
+.header-actions { display: flex; gap: 0.5rem; }
+
+.section-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  animation: slideUp 0.3s ease both;
+}
+
+table { width: 100%; border-collapse: collapse; }
+
+th {
+  padding: 0.75rem 1.5rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--bg);
+}
+
+td {
+  padding: 0.875rem 1.5rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+tr:hover td { background: var(--surface-hover); }
+
+.primary-cell { font-weight: 600; color: var(--text); }
+.mono { font-variant-numeric: tabular-nums; }
+
+.overdue-row td {
+  background: #fef2f2;
+}
+
+.overdue-row:hover td {
+  background: #fee2e2;
+}
+
+.badge {
+  display: inline-flex;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge.active { background: #ecfdf5; color: #059669; }
+.badge.returned { background: #eef2ff; color: #4f46e5; }
+.badge.overdue { background: #fef2f2; color: #dc2626; }
+
+.empty-state { padding: 3rem; text-align: center; color: var(--text-muted); }

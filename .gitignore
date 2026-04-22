@@ -1,0 +1,52 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.csproj.user
+
+## User secrets
+secrets.json
+
+## NuGet
+*.nupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+## Visual Studio
+.vs/
+*.rsuser
+*.sln.docstates
+launchSettings.json.user
+
+## Node / Angular
+node_modules/
+dist/
+tmp/
+out-tsc/
+.angular/
+npm-debug.log
+yarn-error.log
+
+## IDE
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Docker (not used currently)
+.dockerignore
+
+## Misc
+*.log
+*.swp
+*.swo
+*~

@@ -1,0 +1,22 @@
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a routerLink="/" class="navbar-brand">
+      <span class="logo">LMS</span>
+      <span class="brand-text">Library<span class="brand-accent">MS</span></span>
+    </a>
+    <ul class="navbar-links">
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <i class="fas fa-th-large nav-icon"></i> Dashboard
+      </a></li>
+      <li><a routerLink="/books" routerLinkActive="active">
+        <i class="fas fa-book nav-icon"></i> Books
+      </a></li>
+      <li><a routerLink="/members" routerLinkActive="active">
+        <i class="fas fa-users nav-icon"></i> Members
+      </a></li>
+      <li><a routerLink="/loans" routerLinkActive="active">
+        <i class="fas fa-file-alt nav-icon"></i> Loans
+      </a></li>
+    </ul>
+  </div>
+</nav>

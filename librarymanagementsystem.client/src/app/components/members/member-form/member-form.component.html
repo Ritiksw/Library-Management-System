@@ -1,0 +1,27 @@
+<div class="form-page">
+  <h1>{{ isEdit ? 'Edit Member' : 'Add New Member' }}</h1>
+
+  <div class="alert alert-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <form (ngSubmit)="save()" #memberForm="ngForm" class="form-card">
+    <div class="form-group">
+      <label for="fullName">Full Name *</label>
+      <input id="fullName" type="text" [(ngModel)]="model.fullName" name="fullName" required maxlength="100" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input id="email" type="email" [(ngModel)]="model.email" name="email" required maxlength="200" />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input id="phone" type="tel" [(ngModel)]="model.phone" name="phone" maxlength="20" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="!memberForm.valid">{{ isEdit ? 'Update' : 'Add Member' }}</button>
+      <a routerLink="/members" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>

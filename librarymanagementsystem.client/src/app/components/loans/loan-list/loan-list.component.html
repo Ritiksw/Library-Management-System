@@ -1,0 +1,50 @@
+<div class="page-header">
+  <div>
+    <h1>Loans</h1>
+    <p class="subtitle">Track book checkouts and returns</p>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-secondary" (click)="toggleFilter()">
+      {{ activeOnly ? 'Show All' : 'Active Only' }}
+    </button>
+    <a routerLink="/loans/checkout" class="btn btn-primary">+ Checkout Book</a>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="table-wrap">
+    <table *ngIf="loans.length > 0">
+      <thead>
+        <tr>
+          <th>Book</th>
+          <th>Member</th>
+          <th>Borrowed</th>
+          <th>Due Date</th>
+          <th>Returned</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let loan of loans" [class.overdue-row]="loan.isOverdue">
+          <td class="primary-cell">{{ loan.bookTitle }}</td>
+          <td>{{ loan.memberName }}</td>
+          <td class="mono">{{ loan.borrowDate | date:'mediumDate' }}</td>
+          <td class="mono">{{ loan.dueDate | date:'mediumDate' }}</td>
+          <td class="mono">{{ loan.returnDate ? (loan.returnDate | date:'mediumDate') : '—' }}</td>
+          <td>
+            <span class="badge" [class.returned]="loan.isReturned" [class.overdue]="loan.isOverdue" [class.active]="!loan.isReturned && !loan.isOverdue">
+              {{ loan.isReturned ? 'Returned' : (loan.isOverdue ? 'Overdue' : 'Active') }}
+            </span>
+          </td>
+          <td>
+            <button *ngIf="!loan.isReturned" class="btn btn-sm btn-primary" (click)="returnBook(loan.id)">Return</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="empty-state" *ngIf="loans.length === 0">
+    <p>No loans found.</p>
+  </div>
+</div>

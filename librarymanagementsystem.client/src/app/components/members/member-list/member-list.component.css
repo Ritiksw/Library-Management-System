@@ -1,0 +1,106 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.page-header h1 { font-size: 1.75rem; font-weight: 800; margin: 0; }
+.subtitle { color: var(--text-secondary); margin: 0.25rem 0 0; font-size: 0.9rem; }
+
+.search-bar { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
+
+.search-input-wrap { flex: 1; position: relative; }
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  opacity: 0.4;
+  color: var(--text-secondary);
+}
+
+.search-input-wrap input {
+  width: 100%;
+  padding: 0.7rem 1rem 0.7rem 2.75rem;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: all var(--transition);
+  background: var(--surface);
+}
+
+.search-input-wrap input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.section-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  animation: slideUp 0.3s ease both;
+}
+
+table { width: 100%; border-collapse: collapse; }
+
+th {
+  padding: 0.75rem 1.5rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--bg);
+}
+
+td {
+  padding: 0.875rem 1.5rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+tr:hover td { background: var(--surface-hover); }
+
+.primary-cell { font-weight: 600; color: var(--text); }
+.mono { font-variant-numeric: tabular-nums; }
+
+.loan-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: var(--bg);
+  color: var(--text-muted);
+}
+
+.loan-count.has-loans {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.badge {
+  display: inline-flex;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge.active { background: #ecfdf5; color: #059669; }
+.badge.inactive { background: #fef2f2; color: #dc2626; }
+
+.actions { display: flex; gap: 0.5rem; }
+.empty-state { padding: 3rem; text-align: center; color: var(--text-muted); }

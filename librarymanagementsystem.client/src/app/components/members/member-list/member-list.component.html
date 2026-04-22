@@ -1,0 +1,56 @@
+<div class="page-header">
+  <div>
+    <h1>Members</h1>
+    <p class="subtitle">Manage library memberships</p>
+  </div>
+  <a routerLink="/members/new" class="btn btn-primary">+ Add Member</a>
+</div>
+
+<div class="search-bar">
+  <div class="search-input-wrap">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" [(ngModel)]="search" (keyup.enter)="onSearch()" placeholder="Search by name or email..." />
+  </div>
+  <button class="btn btn-secondary" (click)="onSearch()">Search</button>
+</div>
+
+<div class="section-card">
+  <div class="table-wrap">
+    <table *ngIf="members.length > 0">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Member Since</th>
+          <th>Active Loans</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let member of members">
+          <td class="primary-cell">{{ member.fullName }}</td>
+          <td>{{ member.email }}</td>
+          <td class="mono">{{ member.phone }}</td>
+          <td class="mono">{{ member.membershipDate | date:'mediumDate' }}</td>
+          <td>
+            <span class="loan-count" [class.has-loans]="member.activeLoans > 0">{{ member.activeLoans }}</span>
+          </td>
+          <td>
+            <span class="badge" [class.active]="member.isActive" [class.inactive]="!member.isActive">
+              {{ member.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </td>
+          <td class="actions">
+            <a [routerLink]="['/members/edit', member.id]" class="btn btn-sm btn-secondary">Edit</a>
+            <button class="btn btn-sm btn-danger" (click)="deleteMember(member.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="empty-state" *ngIf="members.length === 0">
+    <p>No members found. Add your first member!</p>
+  </div>
+</div>

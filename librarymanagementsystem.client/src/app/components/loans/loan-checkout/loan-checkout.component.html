@@ -1,0 +1,37 @@
+<div class="form-page">
+  <h1>Checkout Book</h1>
+
+  <div class="alert alert-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <form (ngSubmit)="checkout()" #checkoutForm="ngForm" class="form-card">
+    <div class="form-group">
+      <label for="book">Book *</label>
+      <select id="book" [(ngModel)]="model.bookId" name="bookId" required>
+        <option [ngValue]="0" disabled>Select a book...</option>
+        <option *ngFor="let book of books" [ngValue]="book.id">
+          {{ book.title }} by {{ book.author }} ({{ book.availableCopies }} available)
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="member">Member *</label>
+      <select id="member" [(ngModel)]="model.memberId" name="memberId" required>
+        <option [ngValue]="0" disabled>Select a member...</option>
+        <option *ngFor="let member of members" [ngValue]="member.id">
+          {{ member.fullName }} ({{ member.email }})
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="days">Loan Duration (days)</label>
+      <input id="days" type="number" [(ngModel)]="model.loanDays" name="loanDays" min="1" max="90" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="!checkoutForm.valid || model.bookId === 0 || model.memberId === 0">Checkout</button>
+      <a routerLink="/loans" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,86 @@
+<div class="dashboard" *ngIf="dashboard">
+  <div class="page-title">
+    <h1>Dashboard</h1>
+    <p class="subtitle">Overview of your library activity</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card books">
+      <div class="stat-icon-wrap">
+        <i class="fas fa-book stat-icon"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ dashboard.totalBooks }}</span>
+        <span class="stat-label">Total Book Copies</span>
+      </div>
+    </div>
+    <div class="stat-card members">
+      <div class="stat-icon-wrap">
+        <i class="fas fa-users stat-icon"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ dashboard.totalMembers }}</span>
+        <span class="stat-label">Active Members</span>
+      </div>
+    </div>
+    <div class="stat-card loans">
+      <div class="stat-icon-wrap">
+        <i class="fas fa-exchange-alt stat-icon"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ dashboard.activeLoans }}</span>
+        <span class="stat-label">Active Loans</span>
+      </div>
+    </div>
+    <div class="stat-card overdue">
+      <div class="stat-icon-wrap">
+        <i class="fas fa-exclamation-triangle stat-icon"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ dashboard.overdueLoans }}</span>
+        <span class="stat-label">Overdue</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header">
+      <h2>Recent Loans</h2>
+      <a routerLink="/loans" class="btn btn-sm btn-secondary">View All</a>
+    </div>
+    <div class="table-wrap">
+      <table *ngIf="dashboard.recentLoans.length > 0">
+        <thead>
+          <tr>
+            <th>Book</th>
+            <th>Member</th>
+            <th>Borrowed</th>
+            <th>Due</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let loan of dashboard.recentLoans">
+            <td class="primary-cell">{{ loan.bookTitle }}</td>
+            <td>{{ loan.memberName }}</td>
+            <td class="mono">{{ loan.borrowDate | date:'mediumDate' }}</td>
+            <td class="mono">{{ loan.dueDate | date:'mediumDate' }}</td>
+            <td>
+              <span class="badge" [class.returned]="loan.isReturned" [class.overdue]="loan.isOverdue" [class.active]="!loan.isReturned && !loan.isOverdue">
+                {{ loan.isReturned ? 'Returned' : (loan.isOverdue ? 'Overdue' : 'Active') }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="empty-state" *ngIf="dashboard.recentLoans.length === 0">
+        <p>No loans yet. Checkout a book to get started!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading" *ngIf="!dashboard">
+  <div class="spinner"></div>
+  <p>Loading dashboard...</p>
+</div>

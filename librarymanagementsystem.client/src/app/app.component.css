@@ -1,0 +1,12 @@
+.content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 2.5rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 1.25rem;
+  }
+}
