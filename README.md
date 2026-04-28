@@ -82,6 +82,4 @@ The Angular app starts on **https://localhost:52867** and proxies API calls to t
 | [API Reference](docs/API.md) | All REST endpoints with request/response examples |
 | [Setup Guide](docs/SETUP.md) | Step-by-step dev environment setup |
 
-## License
 
-This project is for educational purposes.
